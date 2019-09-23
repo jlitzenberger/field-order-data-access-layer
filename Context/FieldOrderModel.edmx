@@ -1,0 +1,912 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="FieldOrderModel.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="12.1" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="WEC_API_EXCEPTION_MESSAGES">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="9" Scale="0" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="X_STATUS_CODE" Type="number" Precision="9" Scale="0" Nullable="false" />
+          <Property Name="X_RELATED_ELEMENTS" Type="varchar2" MaxLength="250" />
+          <Property Name="CONTENT_MESSAGE" Type="varchar2" MaxLength="1000" />
+          <Property Name="API" Type="varchar2" MaxLength="250" Nullable="false" />
+          <Property Name="X_STATUS_REASON" Type="varchar2" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="WEC_API_EXCEPTIONS_LOG">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="18" Scale="0" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="EXCEPTIONTYPE" Type="varchar2" MaxLength="20" Nullable="false" />
+          <Property Name="CODE" Type="varchar2" MaxLength="20" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="varchar2" MaxLength="1000" Nullable="false" />
+          <Property Name="STACKTRACE" Type="clob" Nullable="false" />
+          <Property Name="EXCEPTIONDATETIME" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WEC_API_LOG">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="18" Scale="0" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="APPLICATION" Type="varchar2" MaxLength="50" />
+          <Property Name="REQUEST_USER" Type="varchar2" MaxLength="50" />
+          <Property Name="MACHINE" Type="varchar2" MaxLength="50" />
+          <Property Name="REQUEST_IP_ADDRESS" Type="varchar2" MaxLength="50" />
+          <Property Name="REQUEST_CONTENT_TYPE" Type="varchar2" MaxLength="250" />
+          <Property Name="REQUEST_CONTENT_BODY" Type="clob" />
+          <Property Name="REQUEST_URI" Type="varchar2" MaxLength="500" />
+          <Property Name="REQUEST_METHOD" Type="varchar2" MaxLength="20" />
+          <Property Name="REQUEST_ROUTE_TEMPLATE" Type="varchar2" MaxLength="500" />
+          <Property Name="REQUEST_ROUTE_DATA" Type="varchar2" MaxLength="1000" />
+          <Property Name="REQUEST_HEADERS" Type="varchar2" MaxLength="1000" />
+          <Property Name="REQUEST_DATETIME" Type="date" />
+          <Property Name="RESPONSE_CONTENT_TYPE" Type="varchar2" MaxLength="250" />
+          <Property Name="RESPONSE_CONTENT_BODY" Type="clob" />
+          <Property Name="RESPONSE_STATUS_CODE" Type="number" Precision="9" Scale="0" />
+          <Property Name="RESPONSE_HEADERS" Type="varchar2" MaxLength="1000" />
+          <Property Name="RESPONSE_DATETIME" Type="date" />
+          <Property Name="API_EXCEPTION_ID" Type="number" Precision="18" Scale="0" />
+          <Property Name="MESSAGE_TOPIC" Type="varchar2" MaxLength="100" />
+          <Property Name="MESSAGE_QUEUE" Type="varchar2" MaxLength="100" />
+          <Property Name="FIELD_JOB_ID" Type="varchar2" MaxLength="30" />
+          <Property Name="EXTERNAL_NO1" Type="varchar2" MaxLength="50" />
+          <Property Name="EXTERNAL_NO2" Type="varchar2" MaxLength="50" />
+          <Property Name="END_BEFORE_DATE_TIME" Type="timestamp with time zone" Precision="6" />
+          <Property Name="MESSAGE_ID" Type="varchar2" MaxLength="100" />
+          <Property Name="MESSAGE_CORRELATION_ID" Type="varchar2" MaxLength="100" />
+          <Property Name="REQUEST_ID" Type="varchar2" MaxLength="100" />
+          <Property Name="REVIEWED" Type="number" Precision="1" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WEC_API_REPORT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="9" Scale="0" Nullable="false" />
+          <Property Name="REPORT_NAME" Type="varchar2" MaxLength="150" Nullable="false" />
+          <Property Name="SQL_STATEMENT" Type="varchar2" MaxLength="1500" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="varchar2" MaxLength="250" />
+          <Property Name="DATE_CREATED" Type="date" Nullable="false" />
+          <Property Name="DATE_UPDATED" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WEC_API_STATUS_CODES">
+          <Key>
+            <PropertyRef Name="X_STATUS_CODE" />
+          </Key>
+          <Property Name="X_STATUS_CODE" Type="number" Precision="9" Scale="0" Nullable="false" />
+          <Property Name="X_STATUS_DESCRIPTION" Type="varchar2" MaxLength="250" Nullable="false" />
+          <Property Name="HTTP_RESPONSE_CODE" Type="number" Precision="9" Scale="0" Nullable="false" />
+          <Property Name="HTTP_RESPONSE_MESSAGE" Type="varchar2" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WEC_BATCHJOBS">
+          <Key>
+            <PropertyRef Name="JOB_NAME" />
+          </Key>
+          <Property Name="JOB_NAME" Type="varchar2" MaxLength="50" Nullable="false" />
+          <Property Name="JOB_DESCRIPTION" Type="varchar2" MaxLength="200" Nullable="false" />
+          <Property Name="JOB_SCHEDULE" Type="varchar2" MaxLength="50" Nullable="false" />
+          <Property Name="LAST_RUN_START" Type="date" />
+          <Property Name="LAST_RUN_END" Type="date" />
+        </EntityType>
+        <EntityType Name="WEC_CAD_ERROR_CODES">
+          <Key>
+            <PropertyRef Name="ERROR_CODE" />
+            <PropertyRef Name="EXCEPTION_MESSAGES_ID" />
+          </Key>
+          <Property Name="ERROR_CODE" Type="varchar2" MaxLength="50" Nullable="false" />
+          <Property Name="EXCEPTION_MESSAGES_ID" Type="number" Precision="9" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WEC_CREW_SKILL_MAPPING">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="SKILL_CODE" Type="varchar2" MaxLength="3" />
+          <Property Name="SKILL_DESC" Type="varchar2" MaxLength="100" />
+          <Property Name="PGL_COVERED_TASK" Type="varchar2" MaxLength="100" />
+          <Property Name="MEA_COVERED_TASK" Type="varchar2" MaxLength="100" />
+          <Property Name="OPERAND" Type="varchar2" MaxLength="7" />
+          <Property Name="CREATIONDATETIME" Type="date" Nullable="false" />
+          <Property Name="UPDATEDATETIME" Type="date" />
+        </EntityType>
+        <EntityType Name="WEC_DNP_CUTOFF">
+          <Key>
+            <PropertyRef Name="ISR_NO" />
+          </Key>
+          <Property Name="ISR_NO" Type="varchar2" MaxLength="24" Nullable="false" />
+          <Property Name="LAST_BILLED_RDG" Type="varchar2" MaxLength="9" />
+          <Property Name="LAST_BILLED_RDG_DATE" Type="varchar2" MaxLength="10" />
+          <Property Name="LAST_BILLED_RDG_TYPE" Type="varchar2" MaxLength="2" />
+          <Property Name="CURRENT_BILL" Type="varchar2" MaxLength="9" />
+          <Property Name="AMOUNT_ARREARS" Type="varchar2" MaxLength="9" />
+          <Property Name="BILL_DUE_DATE" Type="varchar2" MaxLength="10" />
+          <Property Name="ACCOUNT_BALANCE" Type="varchar2" MaxLength="9" />
+          <Property Name="FIN_NOTICE_EXP_DATE" Type="varchar2" MaxLength="10" />
+          <Property Name="PENDING_TURN_ON" Type="varchar2" MaxLength="3" />
+          <Property Name="TURN_ON_HELD" Type="varchar2" MaxLength="3" />
+          <Property Name="TURN_ON_DATE" Type="varchar2" MaxLength="10" />
+          <Property Name="PREV_TENANT" Type="varchar2" MaxLength="50" />
+          <Property Name="OWNER_NAME" Type="varchar2" MaxLength="50" />
+          <Property Name="OWNER_ADDRESS" Type="varchar2" MaxLength="200" />
+          <Property Name="MTR_RDG_DISTRICT" Type="varchar2" MaxLength="10" />
+          <Property Name="MTR_RDG_ROUTE" Type="varchar2" MaxLength="10" />
+          <Property Name="MTR_RDG_KEY_NBR" Type="varchar2" MaxLength="15" />
+          <Property Name="ACCT_NO" Type="varchar2" MaxLength="13" />
+          <Property Name="SUGGEST_OFF_METHOD" Type="varchar2" MaxLength="50" />
+          <Property Name="HOW_FOUND" Type="varchar2" MaxLength="41" />
+          <Property Name="HOW_LEFT" Type="varchar2" MaxLength="41" />
+          <Property Name="MTR_BAR_REMOVED" Type="varchar2" MaxLength="3" />
+          <Property Name="METER_REMOVED" Type="varchar2" MaxLength="3" />
+          <Property Name="CUTOFF_LOCATION" Type="varchar2" MaxLength="250" />
+          <Property Name="METER_READING" Type="number" Precision="20" Scale="0" />
+          <Property Name="METER_READING_CONF" Type="number" Precision="20" Scale="0" />
+          <Property Name="SUGGEST_OFF_METHOD_CODE" Type="varchar2" MaxLength="1" />
+          <Property Name="MOD_PERSONNEL_ID" Type="number" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="MOD_DATETIME" Type="timestamp with time zone" Precision="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WEC_METER_INSPECTION">
+          <Key>
+            <PropertyRef Name="ISR_NO" />
+          </Key>
+          <Property Name="ISR_NO" Type="varchar2" MaxLength="24" Nullable="false" />
+          <Property Name="METER_NUMBER" Type="varchar2" MaxLength="30" />
+          <Property Name="SERVICE_ADDRESS" Type="varchar2" MaxLength="200" />
+          <Property Name="METER_COMP_CODE" Type="varchar2" MaxLength="25" />
+          <Property Name="METER_LOCATION" Type="varchar2" MaxLength="16" />
+          <Property Name="METER_STATUS" Type="varchar2" MaxLength="8" />
+          <Property Name="METER_BAR" Type="varchar2" MaxLength="3" />
+          <Property Name="METER_READING" Type="number" Precision="14" Scale="4" />
+          <Property Name="LEAK_FOUND" Type="varchar2" MaxLength="3" />
+          <Property Name="METER_CORROSION" Type="varchar2" MaxLength="8" />
+          <Property Name="MTR_PIPE_SUP_COND" Type="varchar2" MaxLength="10" />
+          <Property Name="MTR_PIPE_EXPOSURE" Type="varchar2" MaxLength="25" />
+          <Property Name="METER_REMARKS" Type="varchar2" MaxLength="200" />
+          <Property Name="PIPE_SUPPORT_COND" Type="varchar2" MaxLength="4" />
+          <Property Name="PIPE_EXPOSURE" Type="varchar2" MaxLength="19" />
+          <Property Name="PIPE_CORROSION" Type="varchar2" MaxLength="6" />
+          <Property Name="HEEL_LEAK_FOUND" Type="varchar2" MaxLength="3" />
+          <Property Name="HEEL_COMP_CODE" Type="varchar2" MaxLength="30" />
+          <Property Name="HEEL_REMARKS" Type="varchar2" MaxLength="250" />
+          <Property Name="ODORANT_READING" Type="number" Precision="1" Scale="1" />
+          <Property Name="ODRNT_DEV_SERL_NO" Type="varchar2" MaxLength="15" />
+          <Property Name="ISI_JOBCODE" Type="varchar2" MaxLength="20" />
+          <Property Name="ISI_WORKTYPE" Type="varchar2" MaxLength="35" />
+          <Property Name="PIPEPREMISEID" Type="number" Precision="10" Scale="0" />
+          <Property Name="PIPEPREMISESERVICESEQNUM" Type="number" Precision="5" Scale="0" />
+          <Property Name="MOD_PERSONNEL_ID" Type="number" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="MOD_DATETIME" Type="timestamp with time zone" Precision="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WEC_OUTBOUND_EVENT_TRIGGERS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="9" Scale="0" Nullable="false" />
+          <Property Name="AGENCY" Type="varchar2" MaxLength="20" Nullable="false" />
+          <Property Name="XPATH" Type="varchar2" MaxLength="200" Nullable="false" />
+          <Property Name="EVENT_TYPE" Type="varchar2" MaxLength="50" Nullable="false" />
+          <Property Name="START_DATETIME" Type="date" Nullable="false" />
+          <Property Name="END_DATETIME" Type="date" />
+        </EntityType>
+        <EntityType Name="WEC_SOAP_SERVICE_EXCEPTION_LOG">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="18" Scale="0" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="EXCEPTION_TYPE" Type="varchar2" MaxLength="20" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="varchar2" MaxLength="1000" Nullable="false" />
+          <Property Name="STACKTRACE" Type="blob" Nullable="false" />
+          <Property Name="EXCEPTION_DATETIME" Type="date" Nullable="false" />
+          <Property Name="SERVICE_NAME" Type="varchar2" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WEC_SOAP_SERVICE_LOG">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="18" Scale="0" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="MACHINE" Type="varchar2" MaxLength="50" />
+          <Property Name="REQUEST_IP_ADDRESS" Type="varchar2" MaxLength="50" />
+          <Property Name="REQUEST_CONTENT" Type="blob" />
+          <Property Name="REQUEST_URI" Type="varchar2" MaxLength="500" />
+          <Property Name="REQUEST_DATETIME" Type="date" />
+          <Property Name="RESPONSE_CONTENT" Type="blob" />
+          <Property Name="RESPONSE_DATETIME" Type="date" />
+          <Property Name="API_EXCEPTION_ID" Type="number" Precision="18" Scale="0" />
+          <Property Name="SERVICE_NAME" Type="varchar2" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WEC_TOPIC_LOG">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="38" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SOURCESYSTEM" Type="varchar2" MaxLength="60" />
+          <Property Name="MESSAGETOPIC" Type="varchar2" MaxLength="60" />
+          <Property Name="HEADERS" Type="clob" />
+          <Property Name="PAYLOAD" Type="clob" />
+          <Property Name="MOD_DATETIME" Type="timestamp with time zone" Precision="6" />
+        </EntityType>
+        <EntityType Name="WEC_UDF_DEFINITION">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="9" Scale="0" Nullable="false" />
+          <Property Name="CATEGORY" Type="varchar2" MaxLength="100" Nullable="false" />
+          <Property Name="CATEGORY_INDEX" Type="number" Precision="9" Scale="0" Nullable="false" />
+          <Property Name="CAD_DATA_LABEL" Type="varchar2" MaxLength="250" />
+          <Property Name="DATA_DESCRIPTION" Type="varchar2" MaxLength="250" />
+          <Property Name="CAD_MIN_LENGTH" Type="varchar2" MaxLength="10" />
+          <Property Name="CAD_MAX_LENGTH" Type="varchar2" MaxLength="10" />
+          <Property Name="CAD_VTB" Type="varchar2" MaxLength="20" />
+          <Property Name="PRE_POPULATE" Type="char" MaxLength="1" />
+          <Property Name="DATABASE_TABLE" Type="varchar2" MaxLength="100" />
+          <Property Name="DATABASE_COLUMN" Type="varchar2" MaxLength="100" />
+          <Property Name="DATABASE_COLUMN_DEFINITION" Type="varchar2" MaxLength="100" />
+          <Property Name="DATABASE_COMPOSITE_KEY" Type="char" MaxLength="1" />
+          <Property Name="INBOUND_FORMATTING" Type="varchar2" MaxLength="500" />
+          <Property Name="INBOUND_VALIDATION" Type="varchar2" MaxLength="500" />
+          <Property Name="POPULATE_STORMS" Type="char" MaxLength="1" />
+          <Property Name="POPULATE_CSS" Type="char" MaxLength="1" />
+          <Property Name="POPULATE_OMS" Type="char" MaxLength="1" />
+          <Property Name="POPULATE_OCIS" Type="char" MaxLength="1" />
+        </EntityType>
+        <Association Name="WEC_API_EXCEPTION_MESSAGE_FK1">
+          <End Role="WEC_API_STATUS_CODES" Type="Self.WEC_API_STATUS_CODES" Multiplicity="1" />
+          <End Role="WEC_API_EXCEPTION_MESSAGES" Type="Self.WEC_API_EXCEPTION_MESSAGES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WEC_API_STATUS_CODES">
+              <PropertyRef Name="X_STATUS_CODE" />
+            </Principal>
+            <Dependent Role="WEC_API_EXCEPTION_MESSAGES">
+              <PropertyRef Name="X_STATUS_CODE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="WEC_CAD_ERROR_CODES_WEC_A_FK1">
+          <End Role="WEC_API_EXCEPTION_MESSAGES" Type="Self.WEC_API_EXCEPTION_MESSAGES" Multiplicity="1" />
+          <End Role="WEC_CAD_ERROR_CODES" Type="Self.WEC_CAD_ERROR_CODES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WEC_API_EXCEPTION_MESSAGES">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="WEC_CAD_ERROR_CODES">
+              <PropertyRef Name="EXCEPTION_MESSAGES_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FieldOrderModelStoreContainer">
+          <EntitySet Name="WEC_API_EXCEPTION_MESSAGES" EntityType="Self.WEC_API_EXCEPTION_MESSAGES" Schema="CADWEC" store:Type="Tables" />
+          <EntitySet Name="WEC_API_EXCEPTIONS_LOG" EntityType="Self.WEC_API_EXCEPTIONS_LOG" Schema="CADWEC" store:Type="Tables" />
+          <EntitySet Name="WEC_API_LOG" EntityType="Self.WEC_API_LOG" Schema="CADWEC" store:Type="Tables" />
+          <EntitySet Name="WEC_API_REPORT" EntityType="Self.WEC_API_REPORT" Schema="CADWEC" store:Type="Tables" />
+          <EntitySet Name="WEC_API_STATUS_CODES" EntityType="Self.WEC_API_STATUS_CODES" Schema="CADWEC" store:Type="Tables" />
+          <EntitySet Name="WEC_BATCHJOBS" EntityType="Self.WEC_BATCHJOBS" Schema="CADWEC" store:Type="Tables" />
+          <EntitySet Name="WEC_CAD_ERROR_CODES" EntityType="Self.WEC_CAD_ERROR_CODES" Schema="CADWEC" store:Type="Tables" />
+          <EntitySet Name="WEC_CREW_SKILL_MAPPING" EntityType="Self.WEC_CREW_SKILL_MAPPING" Schema="CADWEC" store:Type="Tables" />
+          <EntitySet Name="WEC_DNP_CUTOFF" EntityType="Self.WEC_DNP_CUTOFF" Schema="CADWEC" store:Type="Tables" />
+          <EntitySet Name="WEC_METER_INSPECTION" EntityType="Self.WEC_METER_INSPECTION" Schema="CADWEC" store:Type="Tables" />
+          <EntitySet Name="WEC_OUTBOUND_EVENT_TRIGGERS" EntityType="Self.WEC_OUTBOUND_EVENT_TRIGGERS" Schema="CADWEC" store:Type="Tables" />
+          <EntitySet Name="WEC_SOAP_SERVICE_EXCEPTION_LOG" EntityType="Self.WEC_SOAP_SERVICE_EXCEPTION_LOG" Schema="CADWEC" store:Type="Tables" />
+          <EntitySet Name="WEC_SOAP_SERVICE_LOG" EntityType="Self.WEC_SOAP_SERVICE_LOG" Schema="CADWEC" store:Type="Tables" />
+          <EntitySet Name="WEC_TOPIC_LOG" EntityType="Self.WEC_TOPIC_LOG" Schema="CADWEC" store:Type="Tables" />
+          <EntitySet Name="WEC_UDF_DEFINITION" EntityType="Self.WEC_UDF_DEFINITION" Schema="CADWEC" store:Type="Tables" />
+          <AssociationSet Name="WEC_API_EXCEPTION_MESSAGE_FK1" Association="Self.WEC_API_EXCEPTION_MESSAGE_FK1">
+            <End Role="WEC_API_STATUS_CODES" EntitySet="WEC_API_STATUS_CODES" />
+            <End Role="WEC_API_EXCEPTION_MESSAGES" EntitySet="WEC_API_EXCEPTION_MESSAGES" />
+          </AssociationSet>
+          <AssociationSet Name="WEC_CAD_ERROR_CODES_WEC_A_FK1" Association="Self.WEC_CAD_ERROR_CODES_WEC_A_FK1">
+            <End Role="WEC_API_EXCEPTION_MESSAGES" EntitySet="WEC_API_EXCEPTION_MESSAGES" />
+            <End Role="WEC_CAD_ERROR_CODES" EntitySet="WEC_CAD_ERROR_CODES" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FieldOrderModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="FieldOrderEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="WEC_API_EXCEPTION_MESSAGES" EntityType="FieldOrderModel.WEC_API_EXCEPTION_MESSAGES" />
+          <EntitySet Name="WEC_API_STATUS_CODES" EntityType="FieldOrderModel.WEC_API_STATUS_CODES" />
+          <AssociationSet Name="WEC_API_EXCEPTION_MESSAGE_FK1" Association="FieldOrderModel.WEC_API_EXCEPTION_MESSAGE_FK1">
+            <End Role="WEC_API_STATUS_CODES" EntitySet="WEC_API_STATUS_CODES" />
+            <End Role="WEC_API_EXCEPTION_MESSAGES" EntitySet="WEC_API_EXCEPTION_MESSAGES" />
+          </AssociationSet>
+          <EntitySet Name="WEC_SOAP_SERVICE_EXCEPTION_LOG" EntityType="FieldOrderModel.WEC_SOAP_SERVICE_EXCEPTION_LOG" />
+          <EntitySet Name="WEC_SOAP_SERVICE_LOG" EntityType="FieldOrderModel.WEC_SOAP_SERVICE_LOG" />
+          <EntitySet Name="WEC_CAD_ERROR_CODES" EntityType="FieldOrderModel.WEC_CAD_ERROR_CODES" />
+          <AssociationSet Name="WEC_CAD_ERROR_CODES_WEC_A_FK1" Association="FieldOrderModel.WEC_CAD_ERROR_CODES_WEC_A_FK1">
+            <End Role="WEC_API_EXCEPTION_MESSAGES" EntitySet="WEC_API_EXCEPTION_MESSAGES" />
+            <End Role="WEC_CAD_ERROR_CODES" EntitySet="WEC_CAD_ERROR_CODES" />
+          </AssociationSet>
+          <EntitySet Name="WEC_OUTBOUND_EVENT_TRIGGERS" EntityType="FieldOrderModel.WEC_OUTBOUND_EVENT_TRIGGERS" />
+          <EntitySet Name="WEC_UDF_DEFINITION" EntityType="FieldOrderModel.WEC_UDF_DEFINITION" />
+          <EntitySet Name="WEC_DNP_CUTOFF" EntityType="FieldOrderModel.WEC_DNP_CUTOFF" />
+          <EntitySet Name="WEC_METER_INSPECTION" EntityType="FieldOrderModel.WEC_METER_INSPECTION" />
+          <EntitySet Name="WEC_CREW_SKILL_MAPPING" EntityType="FieldOrderModel.WEC_CREW_SKILL_MAPPING" />
+          <EntitySet Name="WEC_API_EXCEPTIONS_LOG" EntityType="FieldOrderModel.WEC_API_EXCEPTIONS_LOG" />
+          <EntitySet Name="WEC_API_LOG" EntityType="FieldOrderModel.WEC_API_LOG" />
+          <EntitySet Name="WEC_API_REPORT" EntityType="FieldOrderModel.WEC_API_REPORT" />
+          <EntitySet Name="WEC_BATCHJOBS" EntityType="FieldOrderModel.WEC_BATCHJOBS" />
+          <EntitySet Name="WEC_TOPIC_LOG" EntityType="FieldOrderModel.WEC_TOPIC_LOG" />
+          <AssociationSet Name="WEC_API_LOGWEC_API_EXCEPTIONS_LOG" Association="FieldOrderModel.WEC_API_LOGWEC_API_EXCEPTIONS_LOG">
+            <End Role="WEC_API_LOG" EntitySet="WEC_API_LOG" />
+            <End Role="WEC_API_EXCEPTIONS_LOG" EntitySet="WEC_API_EXCEPTIONS_LOG" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="WEC_API_EXCEPTION_MESSAGES">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="X_STATUS_CODE" Type="Int32" Nullable="false" />
+          <Property Name="X_RELATED_ELEMENTS" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="CONTENT_MESSAGE" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
+          <Property Name="API" Type="String" Nullable="false" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="X_STATUS_REASON" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="WEC_API_STATUS_CODES" Relationship="FieldOrderModel.WEC_API_EXCEPTION_MESSAGE_FK1" FromRole="WEC_API_EXCEPTION_MESSAGES" ToRole="WEC_API_STATUS_CODES" />
+          <NavigationProperty Name="WEC_CAD_ERROR_CODES" Relationship="FieldOrderModel.WEC_CAD_ERROR_CODES_WEC_A_FK1" FromRole="WEC_API_EXCEPTION_MESSAGES" ToRole="WEC_CAD_ERROR_CODES" />
+        </EntityType>
+        <EntityType Name="WEC_API_STATUS_CODES">
+          <Key>
+            <PropertyRef Name="X_STATUS_CODE" />
+          </Key>
+          <Property Name="X_STATUS_CODE" Type="Int32" Nullable="false" />
+          <Property Name="X_STATUS_DESCRIPTION" Type="String" Nullable="false" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="HTTP_RESPONSE_CODE" Type="Int32" Nullable="false" />
+          <Property Name="HTTP_RESPONSE_MESSAGE" Type="String" Nullable="false" MaxLength="250" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="WEC_API_EXCEPTION_MESSAGES" Relationship="FieldOrderModel.WEC_API_EXCEPTION_MESSAGE_FK1" FromRole="WEC_API_STATUS_CODES" ToRole="WEC_API_EXCEPTION_MESSAGES" />
+        </EntityType>
+        <Association Name="WEC_API_EXCEPTION_MESSAGE_FK1">
+          <End Role="WEC_API_STATUS_CODES" Type="FieldOrderModel.WEC_API_STATUS_CODES" Multiplicity="1" />
+          <End Role="WEC_API_EXCEPTION_MESSAGES" Type="FieldOrderModel.WEC_API_EXCEPTION_MESSAGES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WEC_API_STATUS_CODES">
+              <PropertyRef Name="X_STATUS_CODE" />
+            </Principal>
+            <Dependent Role="WEC_API_EXCEPTION_MESSAGES">
+              <PropertyRef Name="X_STATUS_CODE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="WEC_SOAP_SERVICE_EXCEPTION_LOG">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="EXCEPTION_TYPE" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DESCRIPTION" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Type="Binary" Name="STACKTRACE" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Type="DateTime" Name="EXCEPTION_DATETIME" Nullable="false" />
+          <Property Type="String" Name="SERVICE_NAME" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="WEC_SOAP_SERVICE_LOG">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="MACHINE" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="REQUEST_IP_ADDRESS" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Binary" Name="REQUEST_CONTENT" MaxLength="Max" FixedLength="false" />
+          <Property Type="String" Name="REQUEST_URI" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="REQUEST_DATETIME" />
+          <Property Type="Binary" Name="RESPONSE_CONTENT" MaxLength="Max" FixedLength="false" />
+          <Property Type="DateTime" Name="RESPONSE_DATETIME" />
+          <Property Type="Int64" Name="API_EXCEPTION_ID" />
+          <Property Type="String" Name="SERVICE_NAME" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="WEC_CAD_ERROR_CODES">
+          <Key>
+            <PropertyRef Name="ERROR_CODE" />
+            <PropertyRef Name="EXCEPTION_MESSAGES_ID" />
+          </Key>
+          <Property Name="ERROR_CODE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EXCEPTION_MESSAGES_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="WEC_API_EXCEPTION_MESSAGES" Relationship="FieldOrderModel.WEC_CAD_ERROR_CODES_WEC_A_FK1" FromRole="WEC_CAD_ERROR_CODES" ToRole="WEC_API_EXCEPTION_MESSAGES" />
+        </EntityType>
+        <Association Name="WEC_CAD_ERROR_CODES_WEC_A_FK1">
+          <End Type="FieldOrderModel.WEC_API_EXCEPTION_MESSAGES" Role="WEC_API_EXCEPTION_MESSAGES" Multiplicity="1" />
+          <End Type="FieldOrderModel.WEC_CAD_ERROR_CODES" Role="WEC_CAD_ERROR_CODES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WEC_API_EXCEPTION_MESSAGES">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="WEC_CAD_ERROR_CODES">
+              <PropertyRef Name="EXCEPTION_MESSAGES_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="WEC_OUTBOUND_EVENT_TRIGGERS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="AGENCY" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="XPATH" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="EVENT_TYPE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="START_DATETIME" Type="DateTime" Nullable="false" />
+          <Property Name="END_DATETIME" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="WEC_UDF_DEFINITION">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="CATEGORY" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CATEGORY_INDEX" Type="Int32" Nullable="false" />
+          <Property Name="CAD_DATA_LABEL" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="DATA_DESCRIPTION" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="CAD_MIN_LENGTH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CAD_MAX_LENGTH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CAD_VTB" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="PRE_POPULATE" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="DATABASE_TABLE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DATABASE_COLUMN" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DATABASE_COLUMN_DEFINITION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="INBOUND_FORMATTING" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="INBOUND_VALIDATION" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DATABASE_COMPOSITE_KEY" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="POPULATE_STORMS" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="POPULATE_CSS" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="POPULATE_OMS" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="POPULATE_OCIS" MaxLength="1" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="WEC_DNP_CUTOFF">
+          <Key>
+            <PropertyRef Name="ISR_NO" />
+          </Key>
+          <Property Type="String" Name="ISR_NO" Nullable="false" MaxLength="24" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="LAST_BILLED_RDG" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="LAST_BILLED_RDG_DATE" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="LAST_BILLED_RDG_TYPE" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CURRENT_BILL" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AMOUNT_ARREARS" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="BILL_DUE_DATE" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ACCOUNT_BALANCE" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="FIN_NOTICE_EXP_DATE" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PENDING_TURN_ON" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="TURN_ON_HELD" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="TURN_ON_DATE" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PREV_TENANT" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="OWNER_NAME" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="OWNER_ADDRESS" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="MTR_RDG_DISTRICT" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="MTR_RDG_ROUTE" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="MTR_RDG_KEY_NBR" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ACCT_NO" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="SUGGEST_OFF_METHOD" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="HOW_FOUND" MaxLength="41" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="HOW_LEFT" MaxLength="41" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="MTR_BAR_REMOVED" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="METER_REMOVED" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CUTOFF_LOCATION" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="METER_READING" Precision="20" Scale="0" />
+          <Property Type="Decimal" Name="METER_READING_CONF" Precision="20" Scale="0" />
+          <Property Type="Int32" Name="MOD_PERSONNEL_ID" Nullable="false" />
+          <Property Type="DateTimeOffset" Name="MOD_DATETIME" Nullable="false" Precision="9" />
+          <Property Name="SUGGEST_OFF_METHOD_CODE" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="WEC_METER_INSPECTION">
+          <Key>
+            <PropertyRef Name="ISR_NO" />
+          </Key>
+          <Property Type="String" Name="ISR_NO" Nullable="false" MaxLength="24" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="METER_NUMBER" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="SERVICE_ADDRESS" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="METER_COMP_CODE" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="METER_LOCATION" Nullable="false" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="METER_STATUS" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="METER_BAR" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="METER_READING" Precision="14" Scale="4" />
+          <Property Type="String" Name="LEAK_FOUND" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="METER_CORROSION" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="MTR_PIPE_SUP_COND" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="MTR_PIPE_EXPOSURE" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="METER_REMARKS" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PIPE_SUPPORT_COND" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PIPE_EXPOSURE" Nullable="false" MaxLength="19" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PIPE_CORROSION" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="HEEL_LEAK_FOUND" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="HEEL_COMP_CODE" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="HEEL_REMARKS" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="ODORANT_READING" Precision="1" Scale="1" />
+          <Property Type="String" Name="ODRNT_DEV_SERL_NO" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ISI_JOBCODE" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ISI_WORKTYPE" MaxLength="35" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="PIPEPREMISEID" />
+          <Property Type="Int16" Name="PIPEPREMISESERVICESEQNUM" />
+          <Property Type="Int32" Name="MOD_PERSONNEL_ID" Nullable="false" />
+          <Property Type="DateTimeOffset" Name="MOD_DATETIME" Nullable="false" Precision="9" />
+        </EntityType>
+        <EntityType Name="WEC_CREW_SKILL_MAPPING">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int64" Name="ID" Nullable="false" />
+          <Property Type="String" Name="SKILL_CODE" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="SKILL_DESC" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PGL_COVERED_TASK" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="MEA_COVERED_TASK" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="OPERAND" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CREATIONDATETIME" Nullable="false" />
+          <Property Type="DateTime" Name="UPDATEDATETIME" />
+        </EntityType>
+        <EntityType Name="WEC_API_EXCEPTIONS_LOG">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EXCEPTIONTYPE" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CODE" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPTION" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="STACKTRACE" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="EXCEPTIONDATETIME" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WEC_API_LOG">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="APPLICATION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="REQUEST_USER" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MACHINE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="REQUEST_IP_ADDRESS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="REQUEST_CONTENT_TYPE" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="REQUEST_CONTENT_BODY" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="REQUEST_URI" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="REQUEST_METHOD" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="REQUEST_ROUTE_TEMPLATE" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="REQUEST_ROUTE_DATA" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="REQUEST_HEADERS" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="REQUEST_DATETIME" Type="DateTime" />
+          <Property Name="RESPONSE_CONTENT_TYPE" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="RESPONSE_CONTENT_BODY" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="RESPONSE_STATUS_CODE" Type="Int32" />
+          <Property Name="RESPONSE_HEADERS" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="RESPONSE_DATETIME" Type="DateTime" />
+          <Property Name="API_EXCEPTION_ID" Type="Int64" />
+          <Property Name="EXTERNAL_NO1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EXTERNAL_NO2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="END_BEFORE_DATE_TIME" Type="DateTimeOffset" Precision="9" />
+          <Property Name="FIELD_JOB_ID" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="MESSAGE_TOPIC" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="MESSAGE_QUEUE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="MESSAGE_ID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="MESSAGE_CORRELATION_ID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="REQUEST_ID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="REVIEWED" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="WEC_API_EXCEPTIONS_LOG" Relationship="FieldOrderModel.WEC_API_LOGWEC_API_EXCEPTIONS_LOG" FromRole="WEC_API_LOG" ToRole="WEC_API_EXCEPTIONS_LOG" />
+        </EntityType>
+        <EntityType Name="WEC_API_REPORT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="REPORT_NAME" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="SQL_STATEMENT" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPTION" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="DATE_CREATED" Type="DateTime" Nullable="false" />
+          <Property Name="DATE_UPDATED" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WEC_BATCHJOBS">
+          <Key>
+            <PropertyRef Name="JOB_NAME" />
+          </Key>
+          <Property Type="String" Name="JOB_NAME" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="JOB_DESCRIPTION" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="JOB_SCHEDULE" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="LAST_RUN_START" />
+          <Property Type="DateTime" Name="LAST_RUN_END" />
+        </EntityType>
+        <EntityType Name="WEC_TOPIC_LOG">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Nullable="false" Precision="38" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SOURCESYSTEM" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="MESSAGETOPIC" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="HEADERS" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PAYLOAD" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MOD_DATETIME" Type="DateTimeOffset" Precision="9" />
+        </EntityType>
+        <Association Name="WEC_API_LOGWEC_API_EXCEPTIONS_LOG">
+          <End Type="FieldOrderModel.WEC_API_LOG" Role="WEC_API_LOG" Multiplicity="*" />
+          <End Type="FieldOrderModel.WEC_API_EXCEPTIONS_LOG" Role="WEC_API_EXCEPTIONS_LOG" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="WEC_API_EXCEPTIONS_LOG">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="WEC_API_LOG">
+              <PropertyRef Name="API_EXCEPTION_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FieldOrderModelStoreContainer" CdmEntityContainer="FieldOrderEntities">
+          <EntitySetMapping Name="WEC_API_EXCEPTION_MESSAGES">
+            <EntityTypeMapping TypeName="FieldOrderModel.WEC_API_EXCEPTION_MESSAGES">
+              <MappingFragment StoreEntitySet="WEC_API_EXCEPTION_MESSAGES">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="X_STATUS_CODE" ColumnName="X_STATUS_CODE" />
+                <ScalarProperty Name="X_RELATED_ELEMENTS" ColumnName="X_RELATED_ELEMENTS" />
+                <ScalarProperty Name="CONTENT_MESSAGE" ColumnName="CONTENT_MESSAGE" />
+                <ScalarProperty Name="API" ColumnName="API" />
+                <ScalarProperty Name="X_STATUS_REASON" ColumnName="X_STATUS_REASON" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WEC_API_STATUS_CODES">
+            <EntityTypeMapping TypeName="FieldOrderModel.WEC_API_STATUS_CODES">
+              <MappingFragment StoreEntitySet="WEC_API_STATUS_CODES">
+                <ScalarProperty Name="X_STATUS_CODE" ColumnName="X_STATUS_CODE" />
+                <ScalarProperty Name="X_STATUS_DESCRIPTION" ColumnName="X_STATUS_DESCRIPTION" />
+                <ScalarProperty Name="HTTP_RESPONSE_CODE" ColumnName="HTTP_RESPONSE_CODE" />
+                <ScalarProperty Name="HTTP_RESPONSE_MESSAGE" ColumnName="HTTP_RESPONSE_MESSAGE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WEC_SOAP_SERVICE_EXCEPTION_LOG">
+            <EntityTypeMapping TypeName="FieldOrderModel.WEC_SOAP_SERVICE_EXCEPTION_LOG">
+              <MappingFragment StoreEntitySet="WEC_SOAP_SERVICE_EXCEPTION_LOG">
+                <ScalarProperty Name="SERVICE_NAME" ColumnName="SERVICE_NAME" />
+                <ScalarProperty Name="EXCEPTION_DATETIME" ColumnName="EXCEPTION_DATETIME" />
+                <ScalarProperty Name="STACKTRACE" ColumnName="STACKTRACE" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="EXCEPTION_TYPE" ColumnName="EXCEPTION_TYPE" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WEC_SOAP_SERVICE_LOG">
+            <EntityTypeMapping TypeName="FieldOrderModel.WEC_SOAP_SERVICE_LOG">
+              <MappingFragment StoreEntitySet="WEC_SOAP_SERVICE_LOG">
+                <ScalarProperty Name="SERVICE_NAME" ColumnName="SERVICE_NAME" />
+                <ScalarProperty Name="API_EXCEPTION_ID" ColumnName="API_EXCEPTION_ID" />
+                <ScalarProperty Name="RESPONSE_DATETIME" ColumnName="RESPONSE_DATETIME" />
+                <ScalarProperty Name="RESPONSE_CONTENT" ColumnName="RESPONSE_CONTENT" />
+                <ScalarProperty Name="REQUEST_DATETIME" ColumnName="REQUEST_DATETIME" />
+                <ScalarProperty Name="REQUEST_URI" ColumnName="REQUEST_URI" />
+                <ScalarProperty Name="REQUEST_CONTENT" ColumnName="REQUEST_CONTENT" />
+                <ScalarProperty Name="REQUEST_IP_ADDRESS" ColumnName="REQUEST_IP_ADDRESS" />
+                <ScalarProperty Name="MACHINE" ColumnName="MACHINE" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WEC_CAD_ERROR_CODES">
+            <EntityTypeMapping TypeName="FieldOrderModel.WEC_CAD_ERROR_CODES">
+              <MappingFragment StoreEntitySet="WEC_CAD_ERROR_CODES">
+                <ScalarProperty Name="EXCEPTION_MESSAGES_ID" ColumnName="EXCEPTION_MESSAGES_ID" />
+                <ScalarProperty Name="ERROR_CODE" ColumnName="ERROR_CODE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WEC_OUTBOUND_EVENT_TRIGGERS">
+            <EntityTypeMapping TypeName="FieldOrderModel.WEC_OUTBOUND_EVENT_TRIGGERS">
+              <MappingFragment StoreEntitySet="WEC_OUTBOUND_EVENT_TRIGGERS">
+                <ScalarProperty Name="END_DATETIME" ColumnName="END_DATETIME" />
+                <ScalarProperty Name="START_DATETIME" ColumnName="START_DATETIME" />
+                <ScalarProperty Name="EVENT_TYPE" ColumnName="EVENT_TYPE" />
+                <ScalarProperty Name="XPATH" ColumnName="XPATH" />
+                <ScalarProperty Name="AGENCY" ColumnName="AGENCY" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WEC_UDF_DEFINITION">
+            <EntityTypeMapping TypeName="FieldOrderModel.WEC_UDF_DEFINITION">
+              <MappingFragment StoreEntitySet="WEC_UDF_DEFINITION">
+                <ScalarProperty Name="POPULATE_OCIS" ColumnName="POPULATE_OCIS" />
+                <ScalarProperty Name="POPULATE_OMS" ColumnName="POPULATE_OMS" />
+                <ScalarProperty Name="POPULATE_CSS" ColumnName="POPULATE_CSS" />
+                <ScalarProperty Name="POPULATE_STORMS" ColumnName="POPULATE_STORMS" />
+                <ScalarProperty Name="DATABASE_COMPOSITE_KEY" ColumnName="DATABASE_COMPOSITE_KEY" />
+                <ScalarProperty Name="INBOUND_VALIDATION" ColumnName="INBOUND_VALIDATION" />
+                <ScalarProperty Name="INBOUND_FORMATTING" ColumnName="INBOUND_FORMATTING" />
+                <ScalarProperty Name="DATABASE_COLUMN_DEFINITION" ColumnName="DATABASE_COLUMN_DEFINITION" />
+                <ScalarProperty Name="DATABASE_COLUMN" ColumnName="DATABASE_COLUMN" />
+                <ScalarProperty Name="DATABASE_TABLE" ColumnName="DATABASE_TABLE" />
+                <ScalarProperty Name="PRE_POPULATE" ColumnName="PRE_POPULATE" />
+                <ScalarProperty Name="CAD_VTB" ColumnName="CAD_VTB" />
+                <ScalarProperty Name="CAD_MAX_LENGTH" ColumnName="CAD_MAX_LENGTH" />
+                <ScalarProperty Name="CAD_MIN_LENGTH" ColumnName="CAD_MIN_LENGTH" />
+                <ScalarProperty Name="DATA_DESCRIPTION" ColumnName="DATA_DESCRIPTION" />
+                <ScalarProperty Name="CAD_DATA_LABEL" ColumnName="CAD_DATA_LABEL" />
+                <ScalarProperty Name="CATEGORY_INDEX" ColumnName="CATEGORY_INDEX" />
+                <ScalarProperty Name="CATEGORY" ColumnName="CATEGORY" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WEC_DNP_CUTOFF">
+            <EntityTypeMapping TypeName="FieldOrderModel.WEC_DNP_CUTOFF">
+              <MappingFragment StoreEntitySet="WEC_DNP_CUTOFF">
+                <ScalarProperty Name="SUGGEST_OFF_METHOD_CODE" ColumnName="SUGGEST_OFF_METHOD_CODE" />
+                <ScalarProperty Name="MOD_DATETIME" ColumnName="MOD_DATETIME" />
+                <ScalarProperty Name="MOD_PERSONNEL_ID" ColumnName="MOD_PERSONNEL_ID" />
+                <ScalarProperty Name="METER_READING_CONF" ColumnName="METER_READING_CONF" />
+                <ScalarProperty Name="METER_READING" ColumnName="METER_READING" />
+                <ScalarProperty Name="CUTOFF_LOCATION" ColumnName="CUTOFF_LOCATION" />
+                <ScalarProperty Name="METER_REMOVED" ColumnName="METER_REMOVED" />
+                <ScalarProperty Name="MTR_BAR_REMOVED" ColumnName="MTR_BAR_REMOVED" />
+                <ScalarProperty Name="HOW_LEFT" ColumnName="HOW_LEFT" />
+                <ScalarProperty Name="HOW_FOUND" ColumnName="HOW_FOUND" />
+                <ScalarProperty Name="SUGGEST_OFF_METHOD" ColumnName="SUGGEST_OFF_METHOD" />
+                <ScalarProperty Name="ACCT_NO" ColumnName="ACCT_NO" />
+                <ScalarProperty Name="MTR_RDG_KEY_NBR" ColumnName="MTR_RDG_KEY_NBR" />
+                <ScalarProperty Name="MTR_RDG_ROUTE" ColumnName="MTR_RDG_ROUTE" />
+                <ScalarProperty Name="MTR_RDG_DISTRICT" ColumnName="MTR_RDG_DISTRICT" />
+                <ScalarProperty Name="OWNER_ADDRESS" ColumnName="OWNER_ADDRESS" />
+                <ScalarProperty Name="OWNER_NAME" ColumnName="OWNER_NAME" />
+                <ScalarProperty Name="PREV_TENANT" ColumnName="PREV_TENANT" />
+                <ScalarProperty Name="TURN_ON_DATE" ColumnName="TURN_ON_DATE" />
+                <ScalarProperty Name="TURN_ON_HELD" ColumnName="TURN_ON_HELD" />
+                <ScalarProperty Name="PENDING_TURN_ON" ColumnName="PENDING_TURN_ON" />
+                <ScalarProperty Name="FIN_NOTICE_EXP_DATE" ColumnName="FIN_NOTICE_EXP_DATE" />
+                <ScalarProperty Name="ACCOUNT_BALANCE" ColumnName="ACCOUNT_BALANCE" />
+                <ScalarProperty Name="BILL_DUE_DATE" ColumnName="BILL_DUE_DATE" />
+                <ScalarProperty Name="AMOUNT_ARREARS" ColumnName="AMOUNT_ARREARS" />
+                <ScalarProperty Name="CURRENT_BILL" ColumnName="CURRENT_BILL" />
+                <ScalarProperty Name="LAST_BILLED_RDG_TYPE" ColumnName="LAST_BILLED_RDG_TYPE" />
+                <ScalarProperty Name="LAST_BILLED_RDG_DATE" ColumnName="LAST_BILLED_RDG_DATE" />
+                <ScalarProperty Name="LAST_BILLED_RDG" ColumnName="LAST_BILLED_RDG" />
+                <ScalarProperty Name="ISR_NO" ColumnName="ISR_NO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WEC_METER_INSPECTION">
+            <EntityTypeMapping TypeName="FieldOrderModel.WEC_METER_INSPECTION">
+              <MappingFragment StoreEntitySet="WEC_METER_INSPECTION">
+                <ScalarProperty Name="MOD_DATETIME" ColumnName="MOD_DATETIME" />
+                <ScalarProperty Name="MOD_PERSONNEL_ID" ColumnName="MOD_PERSONNEL_ID" />
+                <ScalarProperty Name="PIPEPREMISESERVICESEQNUM" ColumnName="PIPEPREMISESERVICESEQNUM" />
+                <ScalarProperty Name="PIPEPREMISEID" ColumnName="PIPEPREMISEID" />
+                <ScalarProperty Name="ISI_WORKTYPE" ColumnName="ISI_WORKTYPE" />
+                <ScalarProperty Name="ISI_JOBCODE" ColumnName="ISI_JOBCODE" />
+                <ScalarProperty Name="ODRNT_DEV_SERL_NO" ColumnName="ODRNT_DEV_SERL_NO" />
+                <ScalarProperty Name="ODORANT_READING" ColumnName="ODORANT_READING" />
+                <ScalarProperty Name="HEEL_REMARKS" ColumnName="HEEL_REMARKS" />
+                <ScalarProperty Name="HEEL_COMP_CODE" ColumnName="HEEL_COMP_CODE" />
+                <ScalarProperty Name="HEEL_LEAK_FOUND" ColumnName="HEEL_LEAK_FOUND" />
+                <ScalarProperty Name="PIPE_CORROSION" ColumnName="PIPE_CORROSION" />
+                <ScalarProperty Name="PIPE_EXPOSURE" ColumnName="PIPE_EXPOSURE" />
+                <ScalarProperty Name="PIPE_SUPPORT_COND" ColumnName="PIPE_SUPPORT_COND" />
+                <ScalarProperty Name="METER_REMARKS" ColumnName="METER_REMARKS" />
+                <ScalarProperty Name="MTR_PIPE_EXPOSURE" ColumnName="MTR_PIPE_EXPOSURE" />
+                <ScalarProperty Name="MTR_PIPE_SUP_COND" ColumnName="MTR_PIPE_SUP_COND" />
+                <ScalarProperty Name="METER_CORROSION" ColumnName="METER_CORROSION" />
+                <ScalarProperty Name="LEAK_FOUND" ColumnName="LEAK_FOUND" />
+                <ScalarProperty Name="METER_READING" ColumnName="METER_READING" />
+                <ScalarProperty Name="METER_BAR" ColumnName="METER_BAR" />
+                <ScalarProperty Name="METER_STATUS" ColumnName="METER_STATUS" />
+                <ScalarProperty Name="METER_LOCATION" ColumnName="METER_LOCATION" />
+                <ScalarProperty Name="METER_COMP_CODE" ColumnName="METER_COMP_CODE" />
+                <ScalarProperty Name="SERVICE_ADDRESS" ColumnName="SERVICE_ADDRESS" />
+                <ScalarProperty Name="METER_NUMBER" ColumnName="METER_NUMBER" />
+                <ScalarProperty Name="ISR_NO" ColumnName="ISR_NO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WEC_CREW_SKILL_MAPPING">
+            <EntityTypeMapping TypeName="FieldOrderModel.WEC_CREW_SKILL_MAPPING">
+              <MappingFragment StoreEntitySet="WEC_CREW_SKILL_MAPPING">
+                <ScalarProperty Name="UPDATEDATETIME" ColumnName="UPDATEDATETIME" />
+                <ScalarProperty Name="CREATIONDATETIME" ColumnName="CREATIONDATETIME" />
+                <ScalarProperty Name="OPERAND" ColumnName="OPERAND" />
+                <ScalarProperty Name="MEA_COVERED_TASK" ColumnName="MEA_COVERED_TASK" />
+                <ScalarProperty Name="PGL_COVERED_TASK" ColumnName="PGL_COVERED_TASK" />
+                <ScalarProperty Name="SKILL_DESC" ColumnName="SKILL_DESC" />
+                <ScalarProperty Name="SKILL_CODE" ColumnName="SKILL_CODE" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WEC_API_EXCEPTIONS_LOG">
+            <EntityTypeMapping TypeName="FieldOrderModel.WEC_API_EXCEPTIONS_LOG">
+              <MappingFragment StoreEntitySet="WEC_API_EXCEPTIONS_LOG">
+                <ScalarProperty Name="EXCEPTIONDATETIME" ColumnName="EXCEPTIONDATETIME" />
+                <ScalarProperty Name="STACKTRACE" ColumnName="STACKTRACE" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="CODE" ColumnName="CODE" />
+                <ScalarProperty Name="EXCEPTIONTYPE" ColumnName="EXCEPTIONTYPE" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WEC_API_LOG">
+            <EntityTypeMapping TypeName="FieldOrderModel.WEC_API_LOG">
+              <MappingFragment StoreEntitySet="WEC_API_LOG">
+                <ScalarProperty Name="REVIEWED" ColumnName="REVIEWED" />
+                <ScalarProperty Name="REQUEST_ID" ColumnName="REQUEST_ID" />
+                <ScalarProperty Name="MESSAGE_CORRELATION_ID" ColumnName="MESSAGE_CORRELATION_ID" />
+                <ScalarProperty Name="MESSAGE_ID" ColumnName="MESSAGE_ID" />
+                <ScalarProperty Name="MESSAGE_QUEUE" ColumnName="MESSAGE_QUEUE" />
+                <ScalarProperty Name="MESSAGE_TOPIC" ColumnName="MESSAGE_TOPIC" />
+                <ScalarProperty Name="FIELD_JOB_ID" ColumnName="FIELD_JOB_ID" />
+                <ScalarProperty Name="END_BEFORE_DATE_TIME" ColumnName="END_BEFORE_DATE_TIME" />
+                <ScalarProperty Name="EXTERNAL_NO2" ColumnName="EXTERNAL_NO2" />
+                <ScalarProperty Name="EXTERNAL_NO1" ColumnName="EXTERNAL_NO1" />
+                <ScalarProperty Name="API_EXCEPTION_ID" ColumnName="API_EXCEPTION_ID" />
+                <ScalarProperty Name="RESPONSE_DATETIME" ColumnName="RESPONSE_DATETIME" />
+                <ScalarProperty Name="RESPONSE_HEADERS" ColumnName="RESPONSE_HEADERS" />
+                <ScalarProperty Name="RESPONSE_STATUS_CODE" ColumnName="RESPONSE_STATUS_CODE" />
+                <ScalarProperty Name="RESPONSE_CONTENT_BODY" ColumnName="RESPONSE_CONTENT_BODY" />
+                <ScalarProperty Name="RESPONSE_CONTENT_TYPE" ColumnName="RESPONSE_CONTENT_TYPE" />
+                <ScalarProperty Name="REQUEST_DATETIME" ColumnName="REQUEST_DATETIME" />
+                <ScalarProperty Name="REQUEST_HEADERS" ColumnName="REQUEST_HEADERS" />
+                <ScalarProperty Name="REQUEST_ROUTE_DATA" ColumnName="REQUEST_ROUTE_DATA" />
+                <ScalarProperty Name="REQUEST_ROUTE_TEMPLATE" ColumnName="REQUEST_ROUTE_TEMPLATE" />
+                <ScalarProperty Name="REQUEST_METHOD" ColumnName="REQUEST_METHOD" />
+                <ScalarProperty Name="REQUEST_URI" ColumnName="REQUEST_URI" />
+                <ScalarProperty Name="REQUEST_CONTENT_BODY" ColumnName="REQUEST_CONTENT_BODY" />
+                <ScalarProperty Name="REQUEST_CONTENT_TYPE" ColumnName="REQUEST_CONTENT_TYPE" />
+                <ScalarProperty Name="REQUEST_IP_ADDRESS" ColumnName="REQUEST_IP_ADDRESS" />
+                <ScalarProperty Name="MACHINE" ColumnName="MACHINE" />
+                <ScalarProperty Name="REQUEST_USER" ColumnName="REQUEST_USER" />
+                <ScalarProperty Name="APPLICATION" ColumnName="APPLICATION" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WEC_API_REPORT">
+            <EntityTypeMapping TypeName="FieldOrderModel.WEC_API_REPORT">
+              <MappingFragment StoreEntitySet="WEC_API_REPORT">
+                <ScalarProperty Name="DATE_UPDATED" ColumnName="DATE_UPDATED" />
+                <ScalarProperty Name="DATE_CREATED" ColumnName="DATE_CREATED" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="SQL_STATEMENT" ColumnName="SQL_STATEMENT" />
+                <ScalarProperty Name="REPORT_NAME" ColumnName="REPORT_NAME" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WEC_BATCHJOBS">
+            <EntityTypeMapping TypeName="FieldOrderModel.WEC_BATCHJOBS">
+              <MappingFragment StoreEntitySet="WEC_BATCHJOBS">
+                <ScalarProperty Name="LAST_RUN_END" ColumnName="LAST_RUN_END" />
+                <ScalarProperty Name="LAST_RUN_START" ColumnName="LAST_RUN_START" />
+                <ScalarProperty Name="JOB_SCHEDULE" ColumnName="JOB_SCHEDULE" />
+                <ScalarProperty Name="JOB_DESCRIPTION" ColumnName="JOB_DESCRIPTION" />
+                <ScalarProperty Name="JOB_NAME" ColumnName="JOB_NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WEC_TOPIC_LOG">
+            <EntityTypeMapping TypeName="FieldOrderModel.WEC_TOPIC_LOG">
+              <MappingFragment StoreEntitySet="WEC_TOPIC_LOG">
+                <ScalarProperty Name="MOD_DATETIME" ColumnName="MOD_DATETIME" />
+                <ScalarProperty Name="PAYLOAD" ColumnName="PAYLOAD" />
+                <ScalarProperty Name="HEADERS" ColumnName="HEADERS" />
+                <ScalarProperty Name="MESSAGETOPIC" ColumnName="MESSAGETOPIC" />
+                <ScalarProperty Name="SOURCESYSTEM" ColumnName="SOURCESYSTEM" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

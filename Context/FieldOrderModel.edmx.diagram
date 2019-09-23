@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5c3d826079b4406d80876fcc0c321087" Name="Diagram1">
+        <EntityTypeShape EntityType="FieldOrderModel.WEC_API_EXCEPTION_MESSAGES" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FieldOrderModel.WEC_API_STATUS_CODES" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <AssociationConnector Association="FieldOrderModel.WEC_API_EXCEPTION_MESSAGE_FK1" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="FieldOrderModel.WEC_SOAP_SERVICE_EXCEPTION_LOG" Width="1.5" PointX="11.375" PointY="1.125" />
+        <EntityTypeShape EntityType="FieldOrderModel.WEC_SOAP_SERVICE_LOG" Width="1.5" PointX="13.25" PointY="1.125" />
+        <EntityTypeShape EntityType="FieldOrderModel.WEC_CAD_ERROR_CODES" Width="1.5" PointX="1.75" PointY="4.625" />
+        <AssociationConnector Association="FieldOrderModel.WEC_CAD_ERROR_CODES_WEC_A_FK1" />
+        <EntityTypeShape EntityType="FieldOrderModel.WEC_OUTBOUND_EVENT_TRIGGERS" Width="1.5" PointX="2.375" PointY="7.5" />
+        <EntityTypeShape EntityType="FieldOrderModel.WEC_UDF_DEFINITION" Width="1.5" PointX="4.125" PointY="7.5" />
+        <EntityTypeShape EntityType="FieldOrderModel.WEC_DNP_CUTOFF" Width="2.625" PointX="7" PointY="8.25" />
+        <EntityTypeShape EntityType="FieldOrderModel.WEC_METER_INSPECTION" Width="1.5" PointX="10.340046632261968" PointY="26.781090853168205" />
+        <EntityTypeShape EntityType="FieldOrderModel.WEC_CREW_SKILL_MAPPING" Width="1.5" PointX="7.7837506159133047" PointY="24.803234037385895" />
+        <EntityTypeShape EntityType="FieldOrderModel.WEC_API_EXCEPTIONS_LOG" Width="2.125" PointX="4.875" PointY="1.125" />
+        <EntityTypeShape EntityType="FieldOrderModel.WEC_API_LOG" Width="2.5" PointX="7.625" PointY="1.125" />
+        <EntityTypeShape EntityType="FieldOrderModel.WEC_API_REPORT" Width="1.5" PointX="0.75" PointY="10.75" />
+        <EntityTypeShape EntityType="FieldOrderModel.WEC_BATCHJOBS" Width="1.5" PointX="11.141712018820323" PointY="14.04829990027859" />
+        <EntityTypeShape EntityType="FieldOrderModel.WEC_TOPIC_LOG" Width="1.5" PointX="11.375" PointY="5.75" />
+        <AssociationConnector Association="FieldOrderModel.WEC_API_LOGWEC_API_EXCEPTIONS_LOG" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

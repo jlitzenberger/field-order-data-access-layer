@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AB367C6B-AC1C-4D04-924D-2B0B2FC88870}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FieldOrder.DataAccessLayer</RootNamespace>
+    <AssemblyName>FieldOrder.DataAccessLayer</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Stage|AnyCPU'">
+    <OutputPath>bin\Stage\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|AnyCPU'">
+    <OutputPath>bin\Test\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Context\FieldOrderModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FieldOrderModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\FieldOrderModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FieldOrderModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\FieldOrderModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FieldOrderModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Context\WEC_API_EXCEPTIONS_LOG.cs">
+      <DependentUpon>FieldOrderModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\WEC_API_EXCEPTION_MESSAGES.cs">
+      <DependentUpon>FieldOrderModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\WEC_API_LOG.cs">
+      <DependentUpon>FieldOrderModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\WEC_API_REPORT.cs">
+      <DependentUpon>FieldOrderModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\WEC_API_STATUS_CODES.cs">
+      <DependentUpon>FieldOrderModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\WEC_BATCHJOBS.cs">
+      <DependentUpon>FieldOrderModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\WEC_CAD_ERROR_CODES.cs">
+      <DependentUpon>FieldOrderModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\WEC_CREW_SKILL_MAPPING.cs">
+      <DependentUpon>FieldOrderModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\WEC_DNP_CUTOFF.cs">
+      <DependentUpon>FieldOrderModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\WEC_METER_INSPECTION.cs">
+      <DependentUpon>FieldOrderModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\WEC_OUTBOUND_EVENT_TRIGGERS.cs">
+      <DependentUpon>FieldOrderModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\WEC_SOAP_SERVICE_EXCEPTION_LOG.cs">
+      <DependentUpon>FieldOrderModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\WEC_SOAP_SERVICE_LOG.cs">
+      <DependentUpon>FieldOrderModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\WEC_TOPIC_LOG.cs">
+      <DependentUpon>FieldOrderModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\WEC_UDF_DEFINITION.cs">
+      <DependentUpon>FieldOrderModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Interfaces\IGenericDataRepository.cs" />
+    <Compile Include="Interfaces\IGenericSqlDataRepository.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\GenericDataRepository.cs" />
+    <Compile Include="Repositories\GenericSqlDataRepository.cs" />
+    <Compile Include="Repositories\UnitOfWork.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <EntityDeploy Include="Context\FieldOrderModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>FieldOrderModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Context\FieldOrderModel.edmx.diagram">
+      <DependentUpon>FieldOrderModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Context\FieldOrderModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>FieldOrderModel.Context.cs</LastGenOutput>
+      <DependentUpon>FieldOrderModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Context\FieldOrderModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>FieldOrderModel.cs</LastGenOutput>
+      <DependentUpon>FieldOrderModel.edmx</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>"J:\DATA\WM\wm_secure\Developer Resources\_NET\NuGet\nuget.exe" pack "$(ProjectPath)" -Exclude **/*.tt -Prop Platform=AnyCPU;Configuration=$(ConfigurationName) -symbols 
+if not exist "J:\DATA\WM\wm_secure\Developer Resources\_NET\NuGetRepo_%25username%25" mkdir "J:\DATA\WM\wm_secure\Developer Resources\_NET\NuGetRepo_%25username%25"
+copy "$(TargetDir)*.nupkg" "J:\DATA\WM\wm_secure\Developer Resources\_NET\NuGetRepo_%25username%25"
+del "$(TargetDir)*.nupkg"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
